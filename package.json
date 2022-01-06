@@ -1,0 +1,21 @@
+{
+    "name": "AssetBundleGenerator",
+    "version": "1.0.0",
+    "description": "A tool for automated Unity-Asset-Bundle generation",
+    "scripts": {
+        "serve": "vite",
+        "serve:neu": "vite build && neu run",
+        "build": "vite build && neu build --release",
+        "lint": "exit 0;"
+    },
+    "author": "Yoones Khoshghadam <yooneskh@gmail.com>",
+    "license": "ISC",
+    "dependencies": {
+        "@neutralinojs/neu": "7.0.1",
+        "vue": "3.2.21"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "1.9.4",
+        "vite": "2.6.14"
+    }
+}
