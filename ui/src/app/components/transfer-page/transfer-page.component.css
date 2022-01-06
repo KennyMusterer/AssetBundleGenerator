@@ -1,0 +1,11 @@
+:host() {
+    height: 100%;
+    width: 100%;
+}
+
+.content {
+    height: calc(100% - 1.5rem);
+    width: 100%;
+
+    background: #4864e6;
+}

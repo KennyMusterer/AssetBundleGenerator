@@ -21,7 +21,7 @@
             "alwaysOnTop": false,
             "icon": "/icons/appIcon.png",
             "enableInspector": true,
-            "borderless": false,
+            "borderless": true,
             "maximize": false
         },
         "browser": {},

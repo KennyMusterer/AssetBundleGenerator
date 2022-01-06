@@ -3,10 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TitlebarComponent } from './components/titlebar/titlebar.component';
+import { TransferPageComponent } from './components/transfer-page/transfer-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TitlebarComponent,
+    TransferPageComponent,
   ],
   imports: [
     BrowserModule,
