@@ -1,12 +1,11 @@
-# vite
-node_modules
-.DS_Store
-dist-ssr
-*.local
+# Developer tools' files
+.lite_workspace.lua
 
-# neutralino
-resources
-.storage
-*.log
+# Neutralinojs binaries and builds
 /bin
 /dist
+/resources
+
+# Neutralinojs related files
+.storage
+*.log
