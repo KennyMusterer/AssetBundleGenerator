@@ -14,9 +14,9 @@
     "globalVariables": {},
     "modes": {
         "window": {
-            "title": "liteman",
-            "width": 800,
-            "height": 500,
+            "title": "AssetBundle Generator",
+            "width": 1700,
+            "height": 1100,
             "fullScreen": false,
             "alwaysOnTop": false,
             "icon": "/icons/appIcon.png",

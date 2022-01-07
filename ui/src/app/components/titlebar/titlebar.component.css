@@ -1,17 +1,25 @@
 .bar {
     height: 1.5rem;
     width: 100%;
-    background-color: #3a50b8;
+    background-color: #1E1E27;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
+.disable-select {
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -moz-user-select: none;
+}
+
 .title {
     height: 100%;
     width: calc(100% - 7rem);
-    color: #fff;
+    color: #ddd;
     font-family: 'Cantarell', 'arial', sans-serif;
 }
 
