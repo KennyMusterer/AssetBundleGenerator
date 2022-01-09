@@ -1,10 +1,11 @@
 <div class="bar">
-    <div class="title disable-select" id="title" (mousedown)="grab($event)">AssetBundle Generator</div>
+    <img class="logo" src="assets/icons/ABG_LOGO.png">
+    <div class="title disable-select" id="title" (mousedown)="undock()">AssetBundle Generator</div>
     <div class="window-control disable-select" (click)="minimize()">
         <img src="assets/icons/Minimize.svg">
     </div>
     <div class="window-control disable-select" (click)="switchSize()">
-        <img src="assets/icons/Restore.svg">
+        <img [src]="image_src">
     </div>
     <div class="window-control close disable-select" (click)="close()">
         <img src="assets/icons/Close.svg">

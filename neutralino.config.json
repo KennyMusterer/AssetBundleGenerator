@@ -7,7 +7,6 @@
     "enableServer": true,
     "enableNativeAPI": true,
     "nativeBlockList": [
-        "os.execCommand",
         "filesystem.removeDirectory",
         "filesystem.removeFile"
     ],
@@ -15,11 +14,11 @@
     "modes": {
         "window": {
             "title": "AssetBundle Generator",
-            "width": 1700,
-            "height": 1100,
+            "width": 1300,
+            "height": 700,
             "fullScreen": false,
             "alwaysOnTop": false,
-            "icon": "/icons/appIcon.png",
+            "icon": "/icons/ABG_Logo.png",
             "enableInspector": true,
             "borderless": true,
             "maximize": false

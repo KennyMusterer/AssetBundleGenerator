@@ -11,32 +11,28 @@ export class TitlebarComponent implements OnInit {
 
   constructor() { }
 
-  dragging = false;
-  xOffset = 0;
+  docked: boolean = false;
+  image_src = 'assets/icons/Maximize.svg';
 
   ngOnInit(): void {
-  }
-
-  @HostListener('document:mousemove', ['$event']) 
-  onMouseMove(e) {
-    if (this.dragging) Neutralino.window.move(e.screenX*2  - this.xOffset, e.screenY*2);
+    Neutralino.window.setDraggableRegion('title');
   }
 
   @HostListener('window:mouseup', ['$event'])
-  mouseUp(event){
-    this.dragging = false;
+  mouseUp(event) {
 
-    if(event.screenY == 0){
+    if (event.screenY == 0) {
       Neutralino.window.maximize();
+      this.docked = true;
+      this.image_src = 'assets/icons/Restore.svg';
     }
   }
 
-  async grab(e) {
-    this.xOffset = e.screenX - e.pageX;
-    this.dragging = true;
-
-    if (await Neutralino.window.isMaximized()) {
+  undock() {
+    if (this.docked) {
       Neutralino.window.unmaximize();
+      this.docked = false;
+      this.image_src = 'assets/icons/Maximize.svg';
     }
   }
 
@@ -45,23 +41,19 @@ export class TitlebarComponent implements OnInit {
   }
 
   async switchSize() {
-    
-    console.log(await Neutralino.window.isMaximized());
-    
+
     if (await Neutralino.window.isMaximized()) {
       Neutralino.window.unmaximize();
-      if(this.dragging) this.dragging = false;
+      this.image_src = 'assets/icons/Maximize.svg';
     }
     else {
       Neutralino.window.maximize();
+      this.image_src = 'assets/icons/Restore.svg';
     }
   }
 
   close() {
     Neutralino.app.exit();
   }
-}
-function allRelationshipQueries(allRelationshipQueries: any) {
-  throw new Error('Function not implemented.');
 }
 

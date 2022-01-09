@@ -16,11 +16,18 @@
     -moz-user-select: none;
 }
 
+.logo {
+    padding-left: 0.5rem;
+}
+
 .title {
     height: 100%;
     width: calc(100% - 7rem);
-    color: #ddd;
-    font-family: 'Cantarell', 'arial', sans-serif;
+    padding-left: 0.5rem;
+    color: #bbb;
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    align-items: center;
 }
 
 .window-control {
