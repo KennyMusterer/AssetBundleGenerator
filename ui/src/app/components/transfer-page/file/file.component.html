@@ -1,0 +1,5 @@
+<div class="file" (mouseenter)="changeRemoveStyle('block')" (mouseleave)="changeRemoveStyle('none')">
+    <div class="remove-icon disable-select" [ngStyle]="{'display': removeStyle}" (click)="remove()"><img src="assets/icons/Close.svg"></div>
+    <img class="file-icon disable-select" src="assets/icons/file.svg">
+    <div class="file-name disable-select">{{filename}}</div>
+</div>

@@ -41,8 +41,7 @@
     box-sizing: border-box;
     height: 30%;
     width: 100%;
-    padding: 2rem 1rem 0 2rem;
-
+    padding: 2rem 2rem 0 2rem;
     display: flex;
     flex-direction: column;
 }
@@ -56,6 +55,7 @@
 .input-wrapper {
     height: 2rem;
     width: 60%;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-flow: row;
 }
@@ -63,17 +63,14 @@
 .info-input {
     height: calc(100% - 2px);
     width: auto;
-
     background: #444555;
     border: 0;
     border-bottom: 1px solid #1E1E27;
     border-right: 1px solid #1E1E27;
     border-radius: 0.5rem;
-
     text-indent: 0.5rem;
     font-family: 'Ubuntu', sans-serif;
     color: #bbb;
-
     flex-grow: 1;
 }
 
@@ -88,16 +85,13 @@
 .input-button {
     height: 100%;
     padding: 0 0.5rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     color: #bbb;
     background: #444555;
     border-radius: 0 0.5rem 0.5rem 0;
     border-bottom: 1px solid #1E1E27;
-
     cursor: pointer;
 }
 
@@ -105,27 +99,51 @@
     background: #1E1E27;
 }
 
-.add-button {
+.horizontal-align {
     height: 2rem;
-    padding: 0 0.5rem;
+    width: 100%;
     margin-top: auto;
-    width: 12rem;
+    display: flex;
+    flex-flow: row;
+}
 
+.add-button {
+    height: 100%;
+    padding: 0 0.5rem;
+    width: 12rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-
     color: #bbb;
     background: #444555;
     border-bottom: 1px solid #1E1E27;
     font-family: 'Ubuntu', sans-serif;
     border-radius: 0.5rem;
-
     cursor: pointer;
 }
 
 .add-button:active {
     background: #1E1E27
+}
+
+.convert-button {
+    height: 100%;
+    padding: 0 0.5rem;
+    margin-left: auto;
+    width: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #2c7ad3;
+    border-bottom: 1px solid #1E1E27;
+    font-family: 'Ubuntu', sans-serif;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.convert-button:active {
+    background: #50e6ff;
 }
 
 .add-icon {
@@ -151,7 +169,6 @@
     border-radius: 1rem;
     margin: 0 1rem;
     padding: 1rem 10px 1rem 1rem;
-
     color: white;
     overflow: auto;
 }
@@ -174,7 +191,6 @@
     height: 6rem;
     width: 6rem;
     border-radius: 0.5rem;
-
     display: flex;
     justify-content: center;
     align-items: center;

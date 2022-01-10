@@ -1,28 +1,38 @@
 <div class="content">
     <div class="info-wrapper">
+
         <div class="input-label disable-select">Unity installation path</div>
+        <div class="input-wrapper">
+            <input type="text" class="info-input file-input" value="{{unityDir}}" (change)="updateDir($event)" #unityInput/>
+            <div class="input-button disable-select" (click)="showFolderDialog()">Browse</div>
+        </div>
+
+        <div class="input-label disable-select">AssetBundle export path</div>
         <div class="input-wrapper">
             <input type="text" class="info-input file-input" />
             <div class="input-button disable-select" (click)="showFolderDialog()">Browse</div>
         </div>
-        <div (click)="selectFiles()" class="add-button disable-select">
-            Add files to convert
-            <img class="add-icon" src="assets/icons/add.svg">
-        </div>
-    </div>
-    <div class="convert-wrapper">
-        <div class="file-background">
-            <div class="file-container">
-                <div class="file" *ngFor="let i of [].constructor(100)">
-                    <img class="file-icon" src="assets/icons/file.svg">
-                    <div class="file-name disable-select">File 1</div>
-                </div>
+
+        <div class="horizontal-align">
+            <div (click)="selectFiles()" class="add-button disable-select">
+                Add files to convert
+                <img class="add-icon" src="assets/icons/add.svg">
+            </div>
+
+            <div (click)="convert()" class="convert-button disable-select">
+                CONVERT
             </div>
         </div>
 
-        <img class="arrow" src="assets/icons/arrow.svg">
-        <div class="file-background">
+    </div>
 
+    <div class="convert-wrapper">
+        <div class="file-background">
+            <div class="file-container">
+                <ng-template #fileContainer></ng-template>
+            </div>
         </div>
+        <img class="arrow disable-select" src="assets/icons/arrow.svg">
+        <div class="file-background"></div>
     </div>
 </div>
