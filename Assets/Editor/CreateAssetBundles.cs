@@ -7,7 +7,15 @@ public class CreateAssetBundles
     [MenuItem("Assets/Build AssetBundles")]
     static void BuildAllAssetBundles()
     {
-        string assetBundleDirectory = Path.Combine(Application.streamingAssetsPath, "AssetBundles");
+        Object[] objectsToConvert = Resources.LoadAll("Conversion");
+        Debug.Log(objectsToConvert);
+        foreach(Object objectToConvert in objectsToConvert)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(objectToConvert);
+            AssetImporter.GetAtPath(assetPath).SetAssetBundleNameAndVariant(objectToConvert.name, "");
+        }
+
+        string assetBundleDirectory = Path.Combine("Assets/Resources/Converted");
         if (!Directory.Exists(assetBundleDirectory))
         {
             Directory.CreateDirectory(assetBundleDirectory);
