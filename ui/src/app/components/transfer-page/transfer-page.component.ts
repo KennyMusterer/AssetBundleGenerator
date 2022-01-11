@@ -41,7 +41,6 @@ export class TransferPageComponent implements OnInit {
     });
 
     entries.forEach(file => {
-      file = file.replace("\/","\\");
       if(this.unityService.addFile(file)) this.createFileVisualization(file)
     });
 

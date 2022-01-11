@@ -14,8 +14,8 @@
     "modes": {
         "window": {
             "title": "AssetBundle Generator",
-            "width": 1300,
-            "height": 700,
+            "width": 2300,
+            "height": 1700,
             "fullScreen": false,
             "alwaysOnTop": false,
             "icon": "/icons/ABG_Logo.png",

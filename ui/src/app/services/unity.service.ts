@@ -13,11 +13,20 @@ export class UnityService {
   constructor() { }
 
   addFile(filepath: string): boolean{
-    if(this.filesToConvert.indexOf(filepath, 0) > -1){
+    	
+    let formattedPath;
+    if(NL_OS == "Windows"){
+      formattedPath = filepath.replace("\/","\\");
+    }
+    else{
+      formattedPath = filepath.replace("\\","\/");
+    }
+
+    if(this.filesToConvert.indexOf(formattedPath, 0) > -1){
       return false;
     }
     else{
-      this.filesToConvert.push(filepath);
+      this.filesToConvert.push(formattedPath);
       return true;
     }
   }
@@ -40,11 +49,13 @@ export class UnityService {
     if(!await this.checkProject()){
       if(!await this.cloneProject()) return false;
     }
+
+    this.copyFilesToConvert();
   }
 
   private async checkGit(): Promise<boolean>{
     let result = await Neutralino.os.execCommand("git --version");
-
+    console.log(result);
     if(result.stdOut.includes("git version")){
       return true;
     }
@@ -54,16 +65,23 @@ export class UnityService {
   }
 
   private async checkUnity(unityDir: string): Promise<boolean>{
-    
+
     let result;
-    
     if(NL_OS == "Windows"){
-      result = await Neutralino.os.execCommand("cd " + unityDir + " && dir");
+      result = await Neutralino.os.execCommand("cd " + unityDir + " && dir /A D /B Unity.ex*");
     } 
-    else{
-      result = await Neutralino.os.execCommand("cd " + unityDir + " && ls");
+    else if(NL_OS == "Darwin"){
+      result = await Neutralino.os.execCommand("ls " + unityDir + " | grep Unity.app");
+      if(result.stdOut.includes("Unity.app")){
+        return true;
+      }
+      else{
+        return false;
+      }
     }
-    
+    else if(NL_OS == "Linux"){
+      result = await Neutralino.os.execCommand("ls " + unityDir + " | grep Unity.exe");
+    }
 
     if(result.stdOut.includes("Unity.exe")){
       return true;
@@ -78,27 +96,53 @@ export class UnityService {
     
     if(NL_OS == "Windows"){
       result = await Neutralino.os.execCommand("cd %temp% && dir /A D /B AssetBundle*");
+      if(result.stdOut.includes("AssetBundleGenerator")){
+        return true;
+      }
+      else{
+        await Neutralino.os.execCommand("cd %temp% && md AssetBundleGenerator");
+        return false;
+      }
     }
     else{
-      //result = await Neutralino.os.execCommand("cd %temp% && dir");
-    }
-
-    if(result.includes("AssetBundleGenerator")){
-      return true;
-    }
-    else{
-      await Neutralino.os.execCommand("cd %temp% && md AssetBundleGenerator");
-      return false;
-    }
+      result = await Neutralino.os.execCommand("cd $TMPDIR && ls | grep AssetBundle");
+      if(result.stdOut.includes("AssetBundleGenerator")){
+        return true;
+      }
+      else{
+        await Neutralino.os.execCommand("cd $TMPDIR && mkdir AssetBundleGenerator");
+        return false;
+      }
+    }  
   }
 
   private async cloneProject(): Promise<boolean>{
 
-    let result = await Neutralino.os.execCommand("cd %temp%/AssetBundleGenerator && git clone -b unity-batch https://github.com/KennyMusterer/AssetBundleGenerator.git");
-
-    if(result.split(" ").pop().includes("done")){
-      return true;
+    let result 
+    if(NL_OS == "Windows"){
+      result = await Neutralino.os.execCommand("cd %temp%/AssetBundleGenerator && git clone -b unity-batch https://github.com/KennyMusterer/AssetBundleGenerator.git");
     }
-    return false;
+    else{
+      result = await Neutralino.os.execCommand("cd $TMPDIR/AssetBundleGenerator && git clone -b unity-batch https://github.com/KennyMusterer/AssetBundleGenerator.git");
+    }
+    console.log("Project cloned");
+    return true;
+  }
+
+  private async copyFilesToConvert(): Promise<boolean>{
+
+    this.filesToConvert.forEach(async file=>{
+      let result;
+
+      if(NL_OS == "Windows"){
+        console.log(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Conversion`);
+        result = await Neutralino.os.execCommand(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Conversion`);
+        console.log(result);
+      }
+      else{
+        result = await Neutralino.os.execCommand(`cp ${ file } $TMPDIR/AssetBundleGenerator/AssetBundleGenerator/Assets/Conversion`);
+      }
+    })
+    return true;
   }
 }
