@@ -1,3 +1,1 @@
-cd C:\Program Files\Unity\Hub\Editor\2019.4.29f1\Editor
-
-Unity.exe -projectPath "C:\Users\19-12\Documents\Unity\Projekte\GlueCheck\AssetBundleGenerator" -batchMode -executeMethod CreateAssetBundles.BuildAllAssetBundles -quit
+cd "C:\Program Files\Unity\Hub\Editor\2020.3.15f2\Editor" && Unity.exe -projectPath "%temp%\AssetBundleGenerator\AssetBundleGenerator" -batchMode -executeMethod CreateAssetBundles.BuildAllAssetBundles -quit

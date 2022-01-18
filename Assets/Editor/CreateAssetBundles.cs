@@ -9,10 +9,12 @@ public class CreateAssetBundles
     {
         Object[] objectsToConvert = Resources.LoadAll("Conversion");
         Debug.Log(objectsToConvert);
-        foreach(Object objectToConvert in objectsToConvert)
+        foreach (Object objectToConvert in objectsToConvert)
         {
             string assetPath = AssetDatabase.GetAssetPath(objectToConvert);
-            AssetImporter.GetAtPath(assetPath).SetAssetBundleNameAndVariant(objectToConvert.name, "");
+            string objectName = Path.GetFileNameWithoutExtension(assetPath);
+            Debug.Log(objectName);
+            AssetImporter.GetAtPath(assetPath).SetAssetBundleNameAndVariant(objectName, "");
         }
 
         string assetBundleDirectory = Path.Combine("Assets/Resources/Converted");
@@ -22,7 +24,7 @@ public class CreateAssetBundles
         }
         BuildPipeline.BuildAssetBundles(assetBundleDirectory,
                                         BuildAssetBundleOptions.None,
-                                        BuildTarget.StandaloneWindows);
+                                        BuildTarget.StandaloneWindows64);
 
         AssetDatabase.Refresh();
     }
