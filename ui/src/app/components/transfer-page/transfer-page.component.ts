@@ -25,7 +25,6 @@ export class TransferPageComponent implements OnInit {
 
   async showFolderDialog() {
     this.unityDir = await Neutralino.os.showFolderDialog('Select your Unity installation directory');
-    this.unityInput.value = this.unityDir;
   }
 
   updateDir(event: any){

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__ } from '@angular/core';
 
 declare let Neutralino: any;
 declare let NL_OS: string;
@@ -50,7 +50,17 @@ export class UnityService {
       if(!await this.cloneProject()) return false;
     }
 
-    this.copyFilesToConvert();
+    this.copyFilesToConvert()
+      	.then(async ()=> {
+          console.log('resolve');
+          await this.convert(unityDir);
+        })
+        .catch(()=>{
+          console.log('reject');
+          return false;
+        });
+
+    
   }
 
   private async checkGit(): Promise<boolean>{
@@ -129,20 +139,36 @@ export class UnityService {
     return true;
   }
 
-  private async copyFilesToConvert(): Promise<boolean>{
+  private async copyFilesToConvert(){
+    var copiedAll = new Promise((resolve, reject) => {
+        this.filesToConvert.forEach(async file=>{
+        let result;
 
-    this.filesToConvert.forEach(async file=>{
-      let result;
-
-      if(NL_OS == "Windows"){
-        console.log(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Conversion`);
-        result = await Neutralino.os.execCommand(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Conversion`);
+        if(NL_OS == "Windows"){
+          console.log(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Resources\\Conversion`);
+          result = await Neutralino.os.execCommand(`copy "${ file }" %temp%\\AssetBundleGenerator\\AssetBundleGenerator\\Assets\\Resources\\Conversion`);
+        }
+        else{
+          result = await Neutralino.os.execCommand(`cp ${ file } $TMPDIR/AssetBundleGenerator/AssetBundleGenerator/Assets/Resources/Conversion`);
+        }
         console.log(result);
-      }
-      else{
-        result = await Neutralino.os.execCommand(`cp ${ file } $TMPDIR/AssetBundleGenerator/AssetBundleGenerator/Assets/Conversion`);
-      }
-    })
-    return true;
+        if(this.filesToConvert.indexOf(file) == this.filesToConvert.length-1)
+          resolve(true);
+        
+      });
+    });
+    return copiedAll;
+  }
+
+  private async convert(unityDir: string){
+    if(NL_OS == "Windows"){
+      
+      console.log(`"${ unityDir }\\Unity.exe" -projectPath "%temp%\\AssetBundleGenerator\\AssetBundleGenerator" -batchMode -executeMethod ABG.CreateAssetBundles.BuildAllAssetBundles -quit -logFile C:\\Users\\19-12\\Desktop\\log.txt`);
+      console.log(await Neutralino.os.execCommand(`"${ unityDir }\\Unity.exe" -projectPath "%temp%\\AssetBundleGenerator\\AssetBundleGenerator" -batchMode -executeMethod ABG.CreateAssetBundles.BuildAllAssetBundles -quit -logFile C:\\Users\\19-12\\Desktop\\log.txt`));
+    }
+    else{
+      await Neutralino.os.execCommand(`"${ unityDir }/Unity.exe" -projectPath "$TMPDIR/AssetBundleGenerator/AssetBundleGenerator" -batchMode -executeMethod ABG.CreateAssetBundles.BuildAllAssetBundles -quit`);
+    }
+    return;
   }
 }
